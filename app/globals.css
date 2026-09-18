@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --counter: #241a12;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--counter);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.12) 0px, rgba(0, 0, 0, 0.12) 1px, transparent 1px, transparent 68px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.08) 0px, rgba(0, 0, 0, 0.08) 1px, transparent 1px, transparent 68px),
+    radial-gradient(ellipse at 50% -10%, rgba(255, 200, 120, 0.12), transparent 55%);
+  color: #1d2e4a;
+}
+
+/* torn / perforated edge along the top of the ticket */
+.perforated-top {
+  position: relative;
+}
+.perforated-top::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background-image: radial-gradient(circle at 10px 0, var(--counter) 7px, transparent 7.5px);
+  background-size: 20px 14px;
+  background-repeat: repeat-x;
+  background-position: -4px 0;
+}
+
+/* pushpin holding the ticket to the counter */
+.pushpin {
+  box-shadow:
+    inset -2px -2px 3px rgba(0, 0, 0, 0.35),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.25),
+    0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* faint fibrous paper texture */
+.paper-grain {
+  background-image:
+    radial-gradient(rgba(29, 46, 74, 0.035) 1px, transparent 1px),
+    radial-gradient(rgba(29, 46, 74, 0.035) 1px, transparent 1px);
+  background-size: 7px 7px, 11px 11px;
+  background-position: 0 0, 4px 5px;
+}
+
+/* the ink stamp that lands on a drawn result */
+@keyframes stampDown {
+  0% {
+    transform: translate(-50%, -60%) rotate(-14deg) scale(2.4);
+    opacity: 0;
+  }
+  55% {
+    transform: translate(-50%, -50%) rotate(-10deg) scale(0.92);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, -50%) rotate(-12deg) scale(1.05);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-11deg) scale(1);
+    opacity: 1;
+  }
+}
+.stamp-hit {
+  animation: stampDown 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes ticketRise {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.ticket-rise {
+  animation: ticketRise 0.4s ease-out both;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+.flickering {
+  animation: flicker 0.09s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp-hit,
+  .ticket-rise,
+  .flickering {
+    animation: none !important;
+  }
+}
