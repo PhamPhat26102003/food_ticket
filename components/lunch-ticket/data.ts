@@ -82,7 +82,7 @@ export const DEFAULT_ITEMS: DefaultDish[] = [
     image: unsplash("photo-1563245372-f21724e3856d"),
   },
   {
-    name: "Bún cá",
+    name: "Bún cá nước/chấm",
     wiki: ["Bún cá"],
     image: unsplash("photo-1519708227418-c8fd9a32b7a2"),
   },
