@@ -87,6 +87,14 @@ export default function LunchTicket() {
     );
   }
 
+  function selectAll() {
+    setItems((prev) => prev.map((item) => ({ ...item, active: true })));
+  }
+
+  function deselectAll() {
+    setItems((prev) => prev.map((item) => ({ ...item, active: false })));
+  }
+
   function removeItem(id: string) {
     setItems((prev) => prev.filter((item) => item.id !== id));
   }
@@ -140,7 +148,13 @@ export default function LunchTicket() {
     <div className="ticket-rise paper-grain perforated-top relative w-full max-w-sm rotate-[-1.2deg] rounded-sm bg-paper px-6 pb-6 pt-8 shadow-[0_18px_40px_rgba(0,0,0,0.45)]">
       <div className="pushpin absolute left-1/2 top-1 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-stamp" />
       <TicketHeader meta={ticketMeta} />
-      <MenuList items={items} onToggle={toggleActive} onRemove={removeItem} />
+      <MenuList
+        items={items}
+        onToggle={toggleActive}
+        onRemove={removeItem}
+        onSelectAll={selectAll}
+        onDeselectAll={deselectAll}
+      />
       <AddItemForm value={newItem} onChange={setNewItem} onAdd={addItem} />
 
       <button

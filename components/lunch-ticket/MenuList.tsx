@@ -5,12 +5,43 @@ type MenuListProps = {
   items: FoodItem[];
   onToggle: (id: string) => void;
   onRemove: (id: string) => void;
+  onSelectAll: () => void;
+  onDeselectAll: () => void;
 };
 
-export default function MenuList({ items, onToggle, onRemove }: MenuListProps) {
+export default function MenuList({
+  items,
+  onToggle,
+  onRemove,
+  onSelectAll,
+  onDeselectAll,
+}: MenuListProps) {
+  const allSelected = items.length > 0 && items.every((item) => item.active);
+  const noneSelected = items.every((item) => !item.active);
+
   return (
     <div className="mb-3">
-      <p className="mb-2 text-sm text-ink/70">Chọn món có thể trúng</p>
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <p className="text-sm text-ink/70">Chọn món có thể trúng</p>
+        <div className="flex gap-2 text-xs">
+          <button
+            type="button"
+            onClick={onSelectAll}
+            disabled={allSelected}
+            className="text-teal underline decoration-dotted underline-offset-2 transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-35"
+          >
+            Chọn tất cả
+          </button>
+          <button
+            type="button"
+            onClick={onDeselectAll}
+            disabled={noneSelected}
+            className="text-ink/55 underline decoration-dotted underline-offset-2 transition-opacity hover:text-stamp disabled:cursor-not-allowed disabled:opacity-35"
+          >
+            Bỏ chọn tất cả
+          </button>
+        </div>
+      </div>
       <ul className="space-y-1.5">
         {items.map((item) => (
           <li key={item.id} className="group flex items-center gap-2">
